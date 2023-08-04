@@ -75,8 +75,8 @@ spec:
   template:
     spec:
       containers:
-      - name: foo
-        image: bar # comment 1
+        - name: foo
+          image: bar # comment 1
 `,
 			to: `
 apiVersion: apps/v1
@@ -85,8 +85,8 @@ spec:
   template:
     spec:
       containers:
-      - name: foo
-        image: bar
+        - name: foo
+          image: bar
 `,
 			expected: `
 apiVersion: apps/v1
@@ -95,8 +95,8 @@ spec:
   template:
     spec:
       containers:
-      - name: foo
-        image: bar # comment 1
+        - name: foo
+          image: bar # comment 1
 `,
 		}, {
 			name: "keep_comments",
@@ -138,19 +138,19 @@ spec: # comment 1
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
+  - a # comment
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
+  - a
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
+  - a # comment
 `,
 		}, {
 			name: "copy_item_comments_2",
@@ -158,21 +158,21 @@ items:
 apiVersion: apps/v1
 kind: Deployment
 items:
-# comment
-- a
+  # comment
+  - a
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
+  - a
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-# comment
-- a
+  # comment
+  - a
 `,
 		}, {
 			name: "copy_item_comments_middle",
@@ -180,25 +180,25 @@ items:
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
-- b # comment
-- c
+  - a
+  - b # comment
+  - c
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- d
-- b
-- e
+  - d
+  - b
+  - e
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- d
-- b # comment
-- e
+  - d
+  - b # comment
+  - e
 `,
 		}, {
 			name: "copy_item_comments_moved",
@@ -206,25 +206,25 @@ items:
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
-- b # comment
-- c
+  - a
+  - b # comment
+  - c
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
-- c
-- b
+  - a
+  - c
+  - b
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
-- c
-- b
+  - a
+  - c
+  - b
 `,
 		}, {
 			name: "copy_item_comments_no_match",
@@ -232,19 +232,19 @@ items:
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
+  - a # comment
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- b
+  - b
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- b
+  - b
 `,
 		}, {
 			name: "copy_item_comments_add",
@@ -252,21 +252,21 @@ items:
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
+  - a # comment
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
-- b
+  - a
+  - b
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
-- b
+  - a # comment
+  - b
 `,
 		}, {
 			name: "copy_item_comments_remove",
@@ -274,20 +274,20 @@ items:
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
-- b
+  - a # comment
+  - b
 `,
 			to: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a
+  - a
 `,
 			expected: `
 apiVersion: apps/v1
 kind: Deployment
 items:
-- a # comment
+  - a # comment
 `,
 		}, {
 			name: "copy_comments_folded_style",
