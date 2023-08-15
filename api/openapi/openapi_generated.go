@@ -13,13 +13,13 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.Car":              schema_sample_app_apis_sample_v1alpha1_Car(ref),
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarSpec":          schema_sample_app_apis_sample_v1alpha1_CarSpec(ref),
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarStatus":        schema_sample_app_apis_sample_v1alpha1_CarStatus(ref),
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.Motorcycle":       schema_sample_app_apis_sample_v1alpha1_Motorcycle(ref),
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleSpec":   schema_sample_app_apis_sample_v1alpha1_MotorcycleSpec(ref),
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleStatus": schema_sample_app_apis_sample_v1alpha1_MotorcycleStatus(ref),
-		"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.VehicleStatus":    schema_sample_app_apis_sample_v1alpha1_VehicleStatus(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.Car":              schema_sample_app_apis_sample_v1alpha1_Car(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarSpec":          schema_sample_app_apis_sample_v1alpha1_CarSpec(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarStatus":        schema_sample_app_apis_sample_v1alpha1_CarStatus(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.Motorcycle":       schema_sample_app_apis_sample_v1alpha1_Motorcycle(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleSpec":   schema_sample_app_apis_sample_v1alpha1_MotorcycleSpec(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleStatus": schema_sample_app_apis_sample_v1alpha1_MotorcycleStatus(ref),
+		"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.VehicleStatus":    schema_sample_app_apis_sample_v1alpha1_VehicleStatus(ref),
 	}
 }
 
@@ -52,12 +52,12 @@ func schema_sample_app_apis_sample_v1alpha1_Car(ref common.ReferenceCallback) co
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarSpec"),
+							Ref: ref("github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarStatus"),
+							Ref: ref("github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarStatus"),
 						},
 					},
 				},
@@ -65,7 +65,7 @@ func schema_sample_app_apis_sample_v1alpha1_Car(ref common.ReferenceCallback) co
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarSpec", "github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarSpec", "github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.CarStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -166,12 +166,12 @@ func schema_sample_app_apis_sample_v1alpha1_Motorcycle(ref common.ReferenceCallb
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleSpec"),
+							Ref: ref("github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleStatus"),
+							Ref: ref("github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleStatus"),
 						},
 					},
 				},
@@ -179,7 +179,7 @@ func schema_sample_app_apis_sample_v1alpha1_Motorcycle(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleSpec", "github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleSpec", "github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1.MotorcycleStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 

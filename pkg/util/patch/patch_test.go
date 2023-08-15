@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"testing"
 
-	api "github.com/weaveworks/libgitops/cmd/sample-app/apis/sample"
-	"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/scheme"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/serializer"
+	api "github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample"
+	"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/scheme"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
 )
 
 var (

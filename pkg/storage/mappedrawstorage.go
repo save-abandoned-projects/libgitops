@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+	"github.com/save-abandoned-projects/libgitops/pkg/util"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/serializer"
-	"github.com/weaveworks/libgitops/pkg/util"
 )
 
 var (

@@ -6,8 +6,8 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer/comments"
 	"github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/serializer/comments"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/kustomize/kyaml/yaml"

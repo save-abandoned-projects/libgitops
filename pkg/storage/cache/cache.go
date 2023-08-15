@@ -6,9 +6,9 @@ TODO: Revisit if we need this file/package in the future.
 
 import (
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/serializer"
-	"github.com/weaveworks/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 

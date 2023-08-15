@@ -1,14 +1,15 @@
 // TODO: Docs
 
+//go:build ignore
 // +build ignore
 
 package client
 
 import (
-	api "github.com/weaveworks/libgitops/cmd/sample-app/apis/sample"
-	"github.com/weaveworks/libgitops/pkg/client"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
+	api "github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample"
+	"github.com/save-abandoned-projects/libgitops/pkg/client"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )

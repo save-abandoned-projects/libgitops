@@ -1,7 +1,7 @@
 UID_GID ?= $(shell id -u):$(shell id -g)
 GO_VERSION ?= 1.20.4
 GIT_VERSION := $(shell hack/ldflags.sh --version-only)
-PROJECT := github.com/weaveworks/libgitops
+PROJECT := github.com/save-abandoned-projects/libgitops
 BOUNDING_API_DIRS := ${PROJECT}/cmd/apis/sample
 API_DIRS := ${PROJECT}/cmd/sample-app/apis/sample,${PROJECT}/cmd/sample-app/apis/sample/v1alpha1
 SRC_PKGS := cmd pkg

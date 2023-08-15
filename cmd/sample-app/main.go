@@ -7,15 +7,15 @@ import (
 	"os"
 
 	"github.com/labstack/echo"
+	"github.com/save-abandoned-projects/libgitops/cmd/common"
+	"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/scheme"
+	"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1"
+	"github.com/save-abandoned-projects/libgitops/pkg/logs"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
-	"github.com/weaveworks/libgitops/cmd/common"
-	"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/scheme"
-	"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1"
-	"github.com/weaveworks/libgitops/pkg/logs"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/serializer"
-	"github.com/weaveworks/libgitops/pkg/storage"
 )
 
 var manifestDirFlag = pflag.String("data-dir", "/tmp/libgitops/manifest", "Where to store the YAML files")

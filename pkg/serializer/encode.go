@@ -1,8 +1,8 @@
 package serializer
 
 import (
+	"github.com/save-abandoned-projects/libgitops/pkg/util"
 	"github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/util"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )

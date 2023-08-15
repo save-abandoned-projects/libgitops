@@ -7,14 +7,14 @@ import (
 	"os"
 
 	"github.com/labstack/echo"
+	"github.com/save-abandoned-projects/libgitops/cmd/common"
+	"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/scheme"
+	"github.com/save-abandoned-projects/libgitops/pkg/logs"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch/update"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
-	"github.com/weaveworks/libgitops/cmd/common"
-	"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/scheme"
-	"github.com/weaveworks/libgitops/pkg/logs"
-	"github.com/weaveworks/libgitops/pkg/serializer"
-	"github.com/weaveworks/libgitops/pkg/storage/watch"
-	"github.com/weaveworks/libgitops/pkg/storage/watch/update"
 )
 
 var watchDirFlag = pflag.String("watch-dir", "/tmp/libgitops/watch", "Where to watch for YAML/JSON manifests")

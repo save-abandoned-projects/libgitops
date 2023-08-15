@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 /*
@@ -13,10 +14,10 @@ import (
 
 	api "API_DIR"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/filterer"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/filterer"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
