@@ -1,4 +1,4 @@
-module github.com/weaveworks/libgitops
+module github.com/save-abandoned-projects/libgitops
 
 go 1.20
 

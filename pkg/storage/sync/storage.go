@@ -8,11 +8,11 @@ import (
 	"fmt"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/watch"
-	"github.com/weaveworks/libgitops/pkg/storage/watch/update"
-	"github.com/weaveworks/libgitops/pkg/util/sync"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch/update"
+	"github.com/save-abandoned-projects/libgitops/pkg/util/sync"
 )
 
 const updateBuffer = 4096 // How many updates to buffer, 4096 should be enough for even a high update frequency

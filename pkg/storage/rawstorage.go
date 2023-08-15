@@ -9,9 +9,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/serializer"
-	"github.com/weaveworks/libgitops/pkg/util"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/serializer"
+	"github.com/save-abandoned-projects/libgitops/pkg/util"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 

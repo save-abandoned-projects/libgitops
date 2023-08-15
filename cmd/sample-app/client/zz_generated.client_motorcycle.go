@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 /*
@@ -11,12 +12,12 @@ package client
 import (
 	"fmt"
 
-	api "github.com/weaveworks/libgitops/cmd/sample-app/apis/sample"
+	api "github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample"
 
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/filterer"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/filterer"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 

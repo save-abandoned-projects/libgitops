@@ -1,3 +1,4 @@
+//go:build ignore
 // +build ignore
 
 package client
@@ -5,9 +6,9 @@ package client
 import (
 	"fmt"
 
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
-	"github.com/weaveworks/libgitops/pkg/storage/filterer"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/filterer"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 

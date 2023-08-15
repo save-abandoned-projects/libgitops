@@ -1,6 +1,6 @@
 package filter
 
-import "github.com/weaveworks/libgitops/pkg/runtime"
+import "github.com/save-abandoned-projects/libgitops/pkg/runtime"
 
 // ListFilter is an interface for pipe-like list filtering behavior.
 type ListFilter interface {

@@ -8,7 +8,7 @@ import (
 	"github.com/fluxcd/go-git-providers/github"
 	"github.com/fluxcd/go-git-providers/gitprovider"
 	gogithub "github.com/google/go-github/v32/github"
-	"github.com/weaveworks/libgitops/pkg/storage/transaction"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage/transaction"
 )
 
 // TODO: This package should really only depend on go-git-providers' abstraction interface

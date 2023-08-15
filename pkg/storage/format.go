@@ -1,6 +1,6 @@
 package storage
 
-import "github.com/weaveworks/libgitops/pkg/serializer"
+import "github.com/save-abandoned-projects/libgitops/pkg/serializer"
 
 // ContentTypes describes the connection between
 // file extensions and a content types.

@@ -5,7 +5,7 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/weaveworks/libgitops/pkg/util"
+	"github.com/save-abandoned-projects/libgitops/pkg/util"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -122,19 +122,29 @@ type decoder struct {
 
 // Decode returns the decoded object from the next document in the FrameReader stream.
 // If there are multiple documents in the underlying stream, this call will read one
-// 	document and return it. Decode might be invoked for getting new documents until it
-// 	returns io.EOF. When io.EOF is reached in a call, the stream is automatically closed.
+//
+//	document and return it. Decode might be invoked for getting new documents until it
+//	returns io.EOF. When io.EOF is reached in a call, the stream is automatically closed.
+//
 // If the decoded object is for an unrecognized group, or version, UnrecognizedGroupError
-// 	or UnrecognizedVersionError might be returned.
+//
+//	or UnrecognizedVersionError might be returned.
+//
 // If opts.Default is true, the decoded object will be defaulted.
 // If opts.Strict is true, the YAML/JSON will be parsed in strict mode, returning a specific error
-// 	if the input contains duplicate or unknown fields or formatting errors. You can check whether
-// 	a returned failed because of the strictness using k8s.io/apimachinery/pkg/runtime.IsStrictDecodingError.
+//
+//	if the input contains duplicate or unknown fields or formatting errors. You can check whether
+//	a returned failed because of the strictness using k8s.io/apimachinery/pkg/runtime.IsStrictDecodingError.
+//
 // If opts.ConvertToHub is true, the decoded external object will be converted into its hub
-// 	(or internal, if applicable) representation.
-// 	Otherwise, the decoded object will be left in the external representation.
+//
+//	(or internal, if applicable) representation.
+//	Otherwise, the decoded object will be left in the external representation.
+//
 // If opts.DecodeUnknown is true, any type with an unrecognized apiVersion/kind will be returned as a
-// 	*runtime.Unknown object instead of returning a UnrecognizedTypeError.
+//
+//	*runtime.Unknown object instead of returning a UnrecognizedTypeError.
+//
 // opts.DecodeListElements is not applicable in this call.
 func (d *decoder) Decode(fr FrameReader) (runtime.Object, error) {
 	// Read a frame from the FrameReader
@@ -192,21 +202,30 @@ func (d *decoder) decode(doc []byte, into runtime.Object, ct ContentType) (runti
 
 // DecodeInto decodes the next document in the FrameReader stream into obj if the types are matching.
 // If there are multiple documents in the underlying stream, this call will read one
-// 	document and return it. Decode might be invoked for getting new documents until it
-// 	returns io.EOF. When io.EOF is reached in a call, the stream is automatically closed.
+//
+//	document and return it. Decode might be invoked for getting new documents until it
+//	returns io.EOF. When io.EOF is reached in a call, the stream is automatically closed.
+//
 // The decoded object will automatically be converted into the target one (i.e. one can supply an
-// 	ConvertToHub object to this function).
+//
+//	ConvertToHub object to this function).
+//
 // If the decoded object is for an unrecognized group, or version, UnrecognizedGroupError
-// 	or UnrecognizedVersionError might be returned.
+//
+//	or UnrecognizedVersionError might be returned.
+//
 // If opts.Default is true, the decoded object will be defaulted.
 // If opts.Strict is true, the YAML/JSON will be parsed in strict mode, returning a specific error
-// 	if the input contains duplicate or unknown fields or formatting errors. You can check whether
-// 	a returned failed because of the strictness using k8s.io/apimachinery/pkg/runtime.IsStrictDecodingError.
+//
+//	if the input contains duplicate or unknown fields or formatting errors. You can check whether
+//	a returned failed because of the strictness using k8s.io/apimachinery/pkg/runtime.IsStrictDecodingError.
+//
 // opts.DecodeListElements is not applicable in this call.
 // opts.ConvertToHub is not applicable in this call.
 // opts.DecodeUnknown is not applicable in this call. In case you want to decode an object into a
-// 	*runtime.Unknown, just create a runtime.Unknown object and pass the pointer as obj into DecodeInto
-// 	and it'll work.
+//
+//	*runtime.Unknown, just create a runtime.Unknown object and pass the pointer as obj into DecodeInto
+//	and it'll work.
 func (d *decoder) DecodeInto(fr FrameReader, into runtime.Object) error {
 	// Read a frame from the FrameReader.
 	// TODO: Make sure to test the case when doc might contain something, and err is io.EOF
@@ -223,18 +242,27 @@ func (d *decoder) DecodeInto(fr FrameReader, into runtime.Object) error {
 // DecodeAll returns the decoded objects from all documents in the FrameReader stream. The underlying
 // stream is automatically closed on io.EOF. io.EOF is never returned from this function.
 // If any decoded object is for an unrecognized group, or version, UnrecognizedGroupError
-// 	or UnrecognizedVersionError might be returned.
+//
+//	or UnrecognizedVersionError might be returned.
+//
 // If opts.Default is true, the decoded objects will be defaulted.
 // If opts.Strict is true, the YAML/JSON will be parsed in strict mode, returning a specific error
-// 	if the input contains duplicate or unknown fields or formatting errors. You can check whether
-// 	a returned failed because of the strictness using k8s.io/apimachinery/pkg/runtime.IsStrictDecodingError.
+//
+//	if the input contains duplicate or unknown fields or formatting errors. You can check whether
+//	a returned failed because of the strictness using k8s.io/apimachinery/pkg/runtime.IsStrictDecodingError.
+//
 // If opts.ConvertToHub is true, the decoded external object will be converted into its hub
-// 	(or internal, if applicable) representation.
+//
+//	(or internal, if applicable) representation.
+//
 // If opts.DecodeListElements is true and the underlying data contains a v1.List,
-// 	the items of the list will be traversed and decoded into their respective types, which are
-// 	added into the returning slice. The v1.List will in this case not be returned.
+//
+//	the items of the list will be traversed and decoded into their respective types, which are
+//	added into the returning slice. The v1.List will in this case not be returned.
+//
 // If opts.DecodeUnknown is true, any type with an unrecognized apiVersion/kind will be returned as a
-// 	*runtime.Unknown object instead of returning a UnrecognizedTypeError.
+//
+//	*runtime.Unknown object instead of returning a UnrecognizedTypeError.
 func (d *decoder) DecodeAll(fr FrameReader) ([]runtime.Object, error) {
 	objs := []runtime.Object{}
 	for {

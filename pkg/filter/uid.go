@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/weaveworks/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 )
 

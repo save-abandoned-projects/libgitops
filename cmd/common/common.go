@@ -10,11 +10,11 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
+	"github.com/save-abandoned-projects/libgitops/cmd/sample-app/apis/sample/v1alpha1"
+	"github.com/save-abandoned-projects/libgitops/cmd/sample-app/version"
+	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
+	"github.com/save-abandoned-projects/libgitops/pkg/storage"
 	"github.com/spf13/pflag"
-	"github.com/weaveworks/libgitops/cmd/sample-app/apis/sample/v1alpha1"
-	"github.com/weaveworks/libgitops/cmd/sample-app/version"
-	"github.com/weaveworks/libgitops/pkg/runtime"
-	"github.com/weaveworks/libgitops/pkg/storage"
 )
 
 var (

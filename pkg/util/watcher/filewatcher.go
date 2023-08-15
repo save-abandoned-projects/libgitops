@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/rjeczalik/notify"
+	"github.com/save-abandoned-projects/libgitops/pkg/util/sync"
 	log "github.com/sirupsen/logrus"
-	"github.com/weaveworks/libgitops/pkg/util/sync"
 	"golang.org/x/sys/unix"
 )
 
