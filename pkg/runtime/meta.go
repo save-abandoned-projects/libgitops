@@ -1,6 +1,7 @@
 package runtime
 
 import (
+	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
@@ -49,4 +50,18 @@ type PartialObject interface {
 	// IsPartialObject is a dummy function for signalling that this is a partially-loaded object
 	// i.e. only TypeMeta and ObjectMeta are stored in memory.
 	IsPartialObject()
+}
+
+// PartialObjectFrom is used to create a bound PartialObjectImpl from an Object.
+// Note: This might be useful later (maybe here or maybe in pkg/runtime) if re-enable the cache
+func PartialObjectFrom(obj Object) (PartialObject, error) {
+	tm, ok := obj.GetObjectKind().(*metav1.TypeMeta)
+	if !ok {
+		return nil, fmt.Errorf("PartialObjectFrom: Cannot cast obj to *metav1.TypeMeta, is %T", obj.GetObjectKind())
+	}
+	om, ok := obj.GetObjectMeta().(*metav1.ObjectMeta)
+	if !ok {
+		return nil, fmt.Errorf("PartialObjectFrom: Cannot cast obj to *metav1.ObjectMeta, is %T", obj.GetObjectMeta())
+	}
+	return &PartialObjectImpl{*tm, *om}, nil
 }
