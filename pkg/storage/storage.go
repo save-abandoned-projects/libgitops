@@ -355,7 +355,7 @@ func (s *GenericStorage) decode(key ObjectKey, content []byte) (runtime.Object, 
 
 	// Decode the bytes into an Object
 	ct := s.raw.ContentType(key)
-	logrus.Infof("Decoding with content type %s", ct)
+	logrus.Debugf("Decoding with content type %s", ct)
 	obj, err := s.serializer.Decoder(
 		serializer.WithConvertToHubDecode(isInternal),
 	).Decode(serializer.NewFrameReader(ct, serializer.FromBytes(content)))

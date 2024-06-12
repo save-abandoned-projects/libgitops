@@ -1,25 +1,20 @@
 package sync
 
-/*
-
-TODO: Revisit if we need this file/package in the future.
-
 import (
 	"fmt"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage"
-	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage/watch/update"
 	"github.com/save-abandoned-projects/libgitops/pkg/util/sync"
+	log "github.com/sirupsen/logrus"
 )
 
 const updateBuffer = 4096 // How many updates to buffer, 4096 should be enough for even a high update frequency
 
 // SyncStorage is a Storage implementation taking in multiple Storages and
 // keeping them in sync. Any write operation executed on the SyncStorage
-// is propagated to all of the Storages it manages (including the embedded
+// is propagated to all the Storages it manages (including the embedded
 // one). For any retrieval or generation operation, the embedded Storage
 // will be used (it is treated as read-write). As all other Storages only
 // receive write operations, they can be thought of as write-only.
@@ -29,6 +24,10 @@ type SyncStorage struct {
 	inboundStream  update.UpdateStream
 	outboundStream update.UpdateStream
 	monitor        *sync.Monitor
+}
+
+func (ss *SyncStorage) SetUpdateStream(stream update.UpdateStream) {
+	ss.inboundStream = stream
 }
 
 // SyncStorage implements update.EventStorage.
@@ -42,7 +41,7 @@ func NewSyncStorage(rwStorage storage.Storage, wStorages ...storage.Storage) sto
 	}
 
 	for _, s := range ss.storages {
-		if watchStorage, ok := s.(watch.WatchStorage); ok {
+		if watchStorage, ok := s.(update.EventStorage); ok {
 			// Populate eventStream if we found a watchstorage
 			if ss.inboundStream == nil {
 				ss.inboundStream = make(update.UpdateStream, updateBuffer)
@@ -62,7 +61,7 @@ func NewSyncStorage(rwStorage storage.Storage, wStorages ...storage.Storage) sto
 // Set is propagated to all Storages
 func (ss *SyncStorage) Set(obj runtime.Object) error {
 	return ss.runAll(func(s storage.Storage) error {
-		return s.Set(obj)
+		return s.Create(obj)
 	})
 }
 
@@ -83,7 +82,7 @@ func (ss *SyncStorage) Delete(key storage.ObjectKey) error {
 func (ss *SyncStorage) Close() error {
 	// Close all WatchStorages
 	for _, s := range ss.storages {
-		if watchStorage, ok := s.(watch.WatchStorage); ok {
+		if watchStorage, ok := s.(update.EventStorage); ok {
 			_ = watchStorage.Close()
 		}
 	}
@@ -185,4 +184,3 @@ func (ss *SyncStorage) monitorFunc() {
 		}
 	}
 }
-*/

@@ -7,7 +7,7 @@ import "github.com/save-abandoned-projects/libgitops/pkg/serializer"
 var ContentTypes = map[string]serializer.ContentType{
 	".json": serializer.ContentTypeJSON,
 	".yaml": serializer.ContentTypeYAML,
-	".yml":  serializer.ContentTypeYAML,
+	//".yml":  serializer.ContentTypeYAML,
 }
 
 func extForContentType(wanted serializer.ContentType) string {

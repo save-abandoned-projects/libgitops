@@ -1,37 +1,35 @@
 package cache
 
-/*
-
-TODO: Revisit if we need this file/package in the future.
-
 import (
-	log "github.com/sirupsen/logrus"
+	"github.com/save-abandoned-projects/libgitops/pkg/filter"
 	"github.com/save-abandoned-projects/libgitops/pkg/runtime"
 	"github.com/save-abandoned-projects/libgitops/pkg/storage"
+	log "github.com/sirupsen/logrus"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 )
 
 type index struct {
 	storage storage.Storage
-	objects map[schema.GroupVersionKind]map[runtime.UID]*cacheObject
+	objects map[schema.GroupVersionKind]map[types.UID]*cacheObject
 }
 
 func newIndex(storage storage.Storage) *index {
 	return &index{
 		storage: storage,
-		objects: make(map[schema.GroupVersionKind]map[runtime.UID]*cacheObject),
+		objects: make(map[schema.GroupVersionKind]map[types.UID]*cacheObject),
 	}
 }
 
-func (i *index) loadByID(gvk schema.GroupVersionKind, uid runtime.UID) (runtime.Object, error) {
-	if uids, ok := i.objects[gvk]; ok {
-		if obj, ok := uids[uid]; ok {
-			log.Tracef("index: cache hit for %s with UID %q", gvk.Kind, uid)
+func (i *index) loadByID(key storage.ObjectKey) (runtime.Object, error) {
+	if uids, ok := i.objects[key.GetGVK()]; ok {
+		if obj, ok := uids[types.UID(key.GetIdentifier())]; ok {
+			log.Tracef("index: cache hit for %s with UID %q", key.GetKind(), key.GetIdentifier())
 			return obj.loadFull()
 		}
 	}
 
-	log.Tracef("index: cache miss for %s with UID %q", gvk.Kind, uid)
+	log.Tracef("index: cache miss for %s with UID %q", key.GetKind(), key.GetIdentifier())
 	return nil, nil
 }
 
@@ -45,7 +43,7 @@ func (i *index) loadAll() ([]runtime.Object, error) {
 	all := make([]runtime.Object, 0, size)
 
 	for gvk := range i.objects {
-		if objects, err := i.list(gvk); err == nil {
+		if objects, err := i.list(storage.NewKindKey(gvk)); err == nil {
 			all = append(all, objects...)
 		} else {
 			return nil, err
@@ -70,7 +68,7 @@ func store(i *index, obj runtime.Object, apiType bool) error {
 	gvk := co.object.GetObjectKind().GroupVersionKind()
 
 	if _, ok := i.objects[gvk]; !ok {
-		i.objects[gvk] = make(map[runtime.UID]*cacheObject)
+		i.objects[gvk] = make(map[types.UID]*cacheObject)
 	}
 
 	log.Tracef("index: storing %s object with UID %q, meta: %t", gvk.Kind, obj.GetName(), apiType)
@@ -93,11 +91,11 @@ func (i *index) storeAll(objs []runtime.Object) (err error) {
 	return
 }
 
-func (i *index) storeMeta(obj runtime.Object) error {
+func (i *index) storeMeta(obj runtime.PartialObject) error {
 	return store(i, obj, true)
 }
 
-func (i *index) storeAllMeta(objs []runtime.Object) (err error) {
+func (i *index) storeAllMeta(objs []runtime.PartialObject) (err error) {
 	for _, obj := range objs {
 		if uids, ok := i.objects[obj.GetObjectKind().GroupVersionKind()]; ok {
 			if _, ok := uids[obj.GetUID()]; ok {
@@ -113,9 +111,9 @@ func (i *index) storeAllMeta(objs []runtime.Object) (err error) {
 	return
 }
 
-func (i *index) delete(gvk schema.GroupVersionKind, uid runtime.UID) {
-	if uids, ok := i.objects[gvk]; ok {
-		delete(uids, uid)
+func (i *index) delete(key storage.ObjectKey) {
+	if uids, ok := i.objects[key.GetGVK()]; ok {
+		delete(uids, types.UID(key.GetIdentifier()))
 	}
 }
 
@@ -125,32 +123,52 @@ func (i *index) count(gvk schema.GroupVersionKind) (count uint64) {
 	return
 }
 
-func list(i *index, gvk schema.GroupVersionKind, apiTypes bool) ([]runtime.Object, error) {
+func list(i *index, gvk schema.GroupVersionKind, opts ...filter.ListOption) ([]runtime.Object, error) {
 	uids := i.objects[gvk]
 	list := make([]runtime.Object, 0, len(uids))
 
-	log.Tracef("index: listing %s objects, meta: %t", gvk, apiTypes)
+	log.Tracef("index: listing %s objects", gvk)
 	for _, obj := range uids {
-		loadFunc := obj.loadFull
-		if apiTypes {
-			loadFunc = obj.loadAPI
-		}
-
-		if result, err := loadFunc(); err != nil {
+		if result, err := obj.loadFull(); err != nil {
 			return nil, err
 		} else {
 			list = append(list, result)
+		}
+	}
+	o, err := filter.MakeListOptions(opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, filter := range o.Filters {
+		list, err = filter.Filter(list...)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return list, nil
+}
+
+func listMeta(i *index, gvk schema.GroupVersionKind) ([]runtime.PartialObject, error) {
+	uids := i.objects[gvk]
+	list := make([]runtime.PartialObject, 0, len(uids))
+
+	log.Tracef("index: listing %s objects meta", gvk)
+	for _, obj := range uids {
+		if result, err := obj.loadAPI(); err != nil {
+			return nil, err
+		} else {
+			list = append(list, result.(runtime.PartialObject))
 		}
 	}
 
 	return list, nil
 }
 
-func (i *index) list(gvk schema.GroupVersionKind) ([]runtime.Object, error) {
-	return list(i, gvk, false)
+func (i *index) list(kind storage.KindKey, opts ...filter.ListOption) ([]runtime.Object, error) {
+	return list(i, kind.GetGVK(), opts...)
 }
 
-func (i *index) listMeta(gvk schema.GroupVersionKind) ([]runtime.Object, error) {
-	return list(i, gvk, true)
+func (i *index) listMeta(kind storage.KindKey) ([]runtime.PartialObject, error) {
+	return listMeta(i, kind.GetGVK())
 }
-*/
